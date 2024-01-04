@@ -1,24 +1,23 @@
 #!/usr/bin/python3
-'''Pascal’s Triangle Python Script'''
+'''A script for Pascal’s triangle'''
 
 
 def pascal_triangle(n):
     '''
-    returns lists of integers listed which represents Pascal’s triangle of n
+    returns a list of lists of integers representing the Pascal’s triangle of n
     '''
     triangle = []
 
     if n <= 0:
         return triangle
     for i in range(n):
-        blub = []
+        temp = []
 
         for j in range(i+1):
             if j == 0 or j == i:
-                blub.append(1)
+                temp.append(1)
             else:
-                blub.append(triangle[i-1][j-1] + triangle[i-1][j])
-        triangle.append(blub)
+                temp.append(triangle[i-1][j-1] + triangle[i-1][j])
+        triangle.append(temp)
 
     return triangle
-
