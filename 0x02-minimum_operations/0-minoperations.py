@@ -2,14 +2,13 @@
 
 
 """
-Module for the   third round interview question
-Minimum number of operations
+Mini number of ops
 """
 
 
 def minOperations(n: int) -> int:
     """
-    Determine the minimum opeartions to run
+    minimum opeartions to run determined.
     Args:
         n (int):
     Returns:
