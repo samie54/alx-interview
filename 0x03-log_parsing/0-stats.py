@@ -1,42 +1,50 @@
 #!/usr/bin/python3
+# -*- coding: utf-8 -*-
 """
-This module contains the function that displays the
-stats from the standard input
+This script reads stdin line by line and computes metrics.
+
+Example:
+    $ ./0-generator.py | ./0-stats.py
+
 """
-import re
+
+
 import sys
-status_codes = {200: 0, 301: 0, 400: 0, 401: 0,
-                403: 0, 404: 0, 405: 0, 500: 0}
-print_counter = 0
-size_summation = 0
 
 
-def print_logs():
+def print_statistics(total_size, status_codes):
+    """print statistics.
+
+    Args:
+        total_size (int): total file size.
+        status_codes (dict): status codes.
+
     """
-    Prints status codes to the logs
-    """
-    print("File size: {}".format(size_summation))
-    for k, v in sorted(status_codes.items()):
-        if v != 0:
-            print("{}: {}".format(k, v))
+    print(f"File size: {total_size}")
+    for code in sorted(status_codes):
+        if status_codes[code]:
+            print(f"{code}: {status_codes[code]}")
 
 
-if __name__ == "__main__":
-    try:
-        for line in sys.stdin:
-            std_line = line.replace("\n", "")
-            log_list = re.split('- | "|" | " " ', str(std_line))
-            try:
-                codes = log_list[-1].split(" ")
-                if int(codes[0]) not in status_codes.keys():
-                    continue
-                status_codes[int(codes[0])] += 1
-                print_counter += 1
-                size_summation += int(codes[1])
-                if print_counter % 10 == 0:
-                    print_logs()
-            except():
-                pass
-        print_logs()
-    except KeyboardInterrupt:
-        print_logs()
+total_size = 0
+status_codes = {200: 0, 301: 0, 400: 0, 401: 0, 402: 0, 403: 0, 404: 0,
+                405: 0, 500: 0}
+line_count = 0
+try:
+    for line in sys.stdin:
+        line_count += 1
+        parts = line.split()
+
+        if len(parts) >= 9 and parts[-2].isdigit() and parts[-1].isdigit():
+            status = int(parts[-2])
+            if status in status_codes:
+                total_size += int(parts[-1])
+                status_codes[status] += 1
+        if line_count == 10:
+            line_count = 0
+            print_statistics(total_size, status_codes)
+
+except KeyboardInterrupt:
+    pass
+finally:
+    print_statistics(total_size, status_codes)
