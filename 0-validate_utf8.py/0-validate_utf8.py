@@ -1,18 +1,18 @@
 #!/usr/bin/python3
 """
-UTF-8 Validationn
+UTF-8 Validation
 """
 
 
 def validUTF8(data):
     """
-    Determination method if givenn data set
-    represents valid UTF-8 encoding
+    A method that determines if a given data set
+    represents a valid UTF-8 encoding.
 
     USAGE:
-    validUTF-8(data).
+    validUTF-8(data)
 
-    where <data> is list of integers.
+    where <data> is a list of integers
     """
     expected_continuation_bytes = 0
 
@@ -44,4 +44,3 @@ def validUTF8(data):
         return True
     else:
         return False
-
