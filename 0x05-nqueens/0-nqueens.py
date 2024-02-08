@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Finderr Module for N queens.
+"""N queens solution finder module.
 """
 import sys
 
@@ -111,4 +111,3 @@ n = get_input()
 get_solutions()
 for solution in solutions:
     print(solution)
-
